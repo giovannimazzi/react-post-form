@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 
+const urlApi = "https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts";
+
 export default function App() {
   const initialState = {
     author: "",
@@ -21,7 +23,12 @@ export default function App() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    axios
+      .post(urlApi, formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => console.error(e.message));
     setFormData(initialState);
   };
 
