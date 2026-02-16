@@ -1,14 +1,10 @@
-/* import axios from "axios"; */
-import { GiPowerButton } from "react-icons/gi";
+import axios from "axios";
 
 export default function App() {
   return (
-    <div className="p-3">
-      <h1>HELLO WORLD!!!</h1>
-      <button className="btn btn-primary d-flex align-items-center gap-2">
-        <GiPowerButton className="text-warning fw-bold" />
-        BUTTON
-      </button>
+    <div className="container p-5 vh-100">
+      <h1 className="text-center">📨Post Form📨</h1>
+      <div className="card border-5 h-75">ciao</div>
     </div>
   );
 }
