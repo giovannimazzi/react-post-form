@@ -26,7 +26,7 @@ export default function App() {
     axios
       .post(urlApi, formData)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
       })
       .catch((e) => console.error(e.message));
     setFormData(initialState);
