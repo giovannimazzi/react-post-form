@@ -23,12 +23,47 @@ export default function App() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(urlApi, formData)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((e) => console.error(e.message));
+
+    let missingData = false;
+    for (let key in formData) {
+      if (key !== "public") {
+        if (!formData[key] || formData[key].trim() === "") {
+          missingData = true;
+          break;
+        }
+      }
+    }
+
+    const printData = (objectData) => {
+      let stringResult = "";
+      for (let key in objectData) {
+        stringResult += `${key}: ${objectData[key]}\n`;
+      }
+      return stringResult;
+    };
+
+    const handleApiRequest = () => {
+      {
+        axios
+          .post(urlApi, formData)
+          .then((res) => {
+            console.log(res.data);
+            alert("Risposta server: \n\n" + printData(res.data));
+          })
+          .catch((e) => {
+            console.error("ERRORE: " + e.message);
+            alert("ERRORE: \n\n" + e.message);
+          });
+        alert("Dati Inviati!");
+      }
+    };
+
+    missingData
+      ? alert(
+          "Dati mancanti! Compilare in modo corretto tutti i campi e riprovare.",
+        )
+      : handleApiRequest();
+
     setFormData(initialState);
   };
 
@@ -48,6 +83,7 @@ export default function App() {
               type="text"
               className="form-control"
               id="author"
+              required
             />
           </div>
           <div className="mb-3">
@@ -61,6 +97,7 @@ export default function App() {
               type="text"
               className="form-control"
               id="title"
+              required
             />
           </div>
           <div className="mb-3">
@@ -73,6 +110,7 @@ export default function App() {
               onChange={handleFormDataChanges}
               className="form-control"
               id="body"
+              required
             ></textarea>
           </div>
           <div className="mb-3 form-check">
