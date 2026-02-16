@@ -8,3 +8,7 @@
 .card {
   background-color: whitesmoke;
 }
+
+.alert-container {
+  height: 75px;
+}
