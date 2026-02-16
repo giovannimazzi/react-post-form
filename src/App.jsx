@@ -1,32 +1,83 @@
 import axios from "axios";
+import { useState } from "react";
 
 export default function App() {
+  const initialState = {
+    author: "",
+    title: "",
+    body: "",
+    public: false,
+  };
+
+  const [formData, setFormData] = useState(initialState);
+
+  const handleFormDataChanges = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]:
+        e.target.type === "checkbox" ? e.target.checked : e.target.value,
+    });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    setFormData(initialState);
+  };
+
   return (
     <div className="container p-5 vh-100">
       <h1 className="text-center">📨Post Form📨</h1>
       <div className="card border-5">
-        <form className="p-3">
+        <form className="p-3" onSubmit={handleFormSubmit}>
           <div className="mb-3">
-            <label for="author" className="form-label">
+            <label htmlFor="author" className="form-label">
               <h2 className="h6 m-0">Author</h2>
             </label>
-            <input type="text" className="form-control" id="author" />
+            <input
+              name="author"
+              value={formData.author}
+              onChange={handleFormDataChanges}
+              type="text"
+              className="form-control"
+              id="author"
+            />
           </div>
           <div className="mb-3">
-            <label for="title" className="form-label">
+            <label htmlFor="title" className="form-label">
               <h2 className="h6 m-0">Title</h2>
             </label>
-            <input type="text" className="form-control" id="title" />
+            <input
+              name="title"
+              value={formData.title}
+              onChange={handleFormDataChanges}
+              type="text"
+              className="form-control"
+              id="title"
+            />
           </div>
-          <div class="mb-3">
-            <label for="body" class="form-label">
+          <div className="mb-3">
+            <label htmlFor="body" className="form-label">
               <h2 className="h6 m-0">Body</h2>
             </label>
-            <textarea class="form-control" id="body"></textarea>
+            <textarea
+              name="body"
+              value={formData.body}
+              onChange={handleFormDataChanges}
+              className="form-control"
+              id="body"
+            ></textarea>
           </div>
           <div className="mb-3 form-check">
-            <input type="checkbox" className="form-check-input" id="public" />
-            <label className="form-check-label" for="public">
+            <input
+              name="public"
+              checked={formData.public}
+              onChange={handleFormDataChanges}
+              type="checkbox"
+              className="form-check-input"
+              id="public"
+            />
+            <label className="form-check-label" htmlFor="public">
               <h2 className="h6 m-0">Public</h2>
             </label>
           </div>
